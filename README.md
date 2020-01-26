@@ -39,35 +39,49 @@ Find releases at [https://github.com/spatialcurrent/goslicer/releases](https://g
 See the usage below or the following examples.
 
 ```shell
-goslicer is a simple tool for slicing lines.
+goslicer is a simple tool for slicing streams of bytes.
 START must be greater than or equal to zero.
 END supports negative indicies (as subtracted from the total length).
 
 Usage:
-  goslicer START [END]
+  goslicer [--lines] [--indicies] START[:END] [-|FILE]
 
 Flags:
-  -h, --help   help for goslicer
+  -h, --help              help for goslicer
+  -i, --indicies string   indicies
+  -l, --lines             process as lines
 ```
 
 # Examples
 
-**First 10 bytes for each line**
+**First 10 bytes of file**
 
 ```shell
-cat FILE | goslicer 0 10
+cat FILE | goslicer --indicies 0:10
 ```
 
-**Last 10 bytes for each line**
+**Last 10 bytes of file**
 
 ```shell
-cat FILE | goslicer -10
+cat FILE | goslicer --indicies -10
 ```
 
-**Bytes in middle of line**
+**First 10 bytes of each line**
 
 ```shell
-cat FILE | goslicer 10 20
+cat FILE | goslicer --lines --indicies 0:10
+```
+
+**Last 10 bytes of each line**
+
+```shell
+cat FILE | goslicer --lines --indicies -10
+```
+
+**Bytes in middle of each line**
+
+```shell
+cat FILE | goslicer --lines --indicies 10:20
 ```
 
 ## Building
